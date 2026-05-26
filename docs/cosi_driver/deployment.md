@@ -31,6 +31,7 @@ All parameters are mandatory and described below.
 | endpoint            | The S3 frontend network DNS subdomains address of the backend object storage system; that is, an HPE Alletra Storage MP X10000 system.
 | glcpUserClientId    | The HPE Green Lake API client ID.
 | glcpUserSecretKey   | The HPE Green Lake API client secret.
+| glcpWorkspaceId     | The HPE Green Lake workspace ID.
 | dsccZone            | The fully qualified domain name (FQDN) of the HPE Data Services Cloud Console zone.
 | clusterSerialNumber | The backend storage system cluster serial number.
 
@@ -51,6 +52,7 @@ stringData:
   endpoint: http://192.168.1.100:8080
   glcpUserClientId: 00000000-0000-0000-0000-000000000000
   glcpUserSecretKey: 00000000000000000000000000000000
+  glcpWorkspaceId: 000xxxxxxxxxxxxxxxxxxxxxxxxxc000
   dsccZone: us1.data.cloud.hpe.com
   clusterSerialNumber: 0000000000
 ```
@@ -73,7 +75,8 @@ kubectl create -f hpe-object-backend.yaml
     * To create the user, refer to the [HPE documentation](https://support.hpe.com/hpesc/docDisplay?docId=sd00004219en_us&page=objstr_users_create_dscc.html) for this purpose and select the access policy created in the previous step.
         - Save the user name and password. These will be used as the S3 access key and S3 secret key respectively in the COSI secret.
 2. To create the HPE Green Lake API client ID and secret, refer to the following [HPE documentation](https://support.hpe.com/hpesc/public/docDisplay?docId=a00120892en_us&page=GUID-23E6EE78-AAB7-472C-8D16-7169938BE628.html).
-3. To locate the Data Services Cloud Console zone FQDN:
+3. To view Workspace ID & manage workspace, refer to the following [HPE documentation](https://support.hpe.com/hpesc/public/docDisplay?docId=a00120892en_us&page=GUID-D62EE4D7-5CBF-43A0-B91B-12A07EC3D262.html)
+4. To locate the Data Services Cloud Console zone FQDN:
     * Log into HPE Data Services Cloud Console.
     * On the _Services_ page, click _My Services_ to view all services available in your workspace.
     * Select the service that your HPE Alletra Storage MP X10000 device is assigned to and click _Launch_.
@@ -84,14 +87,14 @@ kubectl create -f hpe-object-backend.yaml
         - jp1.data.cloud.hpe.com
         - eu1.data.cloud.hpe.com
         - uk1.data.cloud.hpe.com
-4. To locate the S3 endpoint:
+5. To locate the S3 endpoint:
     * Log into HPE Data Services Cloud Console.
     * Launch the service that your HPE Alletra Storage MP X10000 device is assigned to.
     * Select _Data Ops Manager_.
     * From the menu on the left, select _Systems_. From the list click on the name of the system you want to use for COSI operations.
     * Click on the _Networking_ tab. Under the _Frontend Network_ section, save the value of the _Network DNS Subdomains_ field.
     * The S3 endpoint can be constructed from the _Network DNS Subdomains_ value by using the format: `http://<Network DNS Subdomains>`.
-5. To locate the cluster serial number of the HPE Alletra Storage MP X10000 system, refer to the following [HPE documentation](https://support.hpe.com/hpesc/public/docDisplay?docId=a00120892en_us&page=GUID-616CE4D4-C31A-4BFE-8F41-887C2B0B9046.html).
+6. To locate the cluster serial number of the HPE Alletra Storage MP X10000 system, refer to the following [HPE documentation](https://support.hpe.com/hpesc/public/docDisplay?docId=a00120892en_us&page=GUID-616CE4D4-C31A-4BFE-8F41-887C2B0B9046.html).
 
 !!! tip
     In a real world scenario it's more practical to name the `Secret` something that makes sense for the organization. It could be the hostname of the backend or the role it carries; i.e., "hpe-alletra-sanjose-prod".
